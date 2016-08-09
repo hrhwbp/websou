@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>jQuery 학생성적 처리 실습</title>
+<script type="text/javascript" src = "http://code.jquery.com/jquery-latest.js"></script>
+<script type="text/javascript">
+	$(document).ready(function(){
+		$("#name").bind("keydown", function(e){
+			if(e.keyCode == 13 || e.keyCode == 9){
+				
+				if($("#name").val() === ""){
+					alert("이름을 입력하시오");
+					return;					
+				}else if(isNaN($("#name").val()) === false){
+					alert("이름은 10자 미만으로 입력하시오");
+					$("#name").val("");
+					return;	
+				}else if($("#name").val().length > 10){
+					alert("이름은 10자 미만으로 입력하시오");
+					$("#name").val("");
+					return;
+				}else{
+					$("#kor").focus();
+				}
+			}
+		});				
+	});
+	
+</script>
+</head>
+<body>
+<form action="jq6ex.jsp" method = "get">
+<table border = "1">
+		<tr>
+			<th colspan = "2">**자료 입력**</th>
+		</tr>	
+		<tr>
+			<td>학생명 : </td>
+			<td><input id = "sName" name ="sName" size = "10"></td>
+		</tr> 
+		<tr><td>국  어 : </td>
+			<td><input id = "kor" name = "kor"size = "10"></td>
+		</tr>
+		<tr>
+			<td>영  어 : </td>
+			<td><input id = "eng" name = "eng" size = "10"></td>
+		</tr>
+		<tr><td colspan = "2"><input type="submit" id = "submit" value="전송">
+			<input type="reset" id = "reset" value = "초기화"/></td>
+		</tr>
+	</form>
+</table>
+</body>
+</html>

@@ -1,0 +1,71 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>form test</title>
+</head>
+<body>
+<h2>회원 자료 입력</h2>
+<form action="abc.jsp" method="get">  <!--  전송방식:get, post-->
+<table border="1">
+<tr>
+	<td>이름 : </td>
+	<td><input type="text" name="irum" value="tom" size="10" 
+		  maxlength="10" />
+	</td>
+</tr>
+<tr>
+	<td>아이디 : </td>
+	<td><input type="text" name="id"></input></td>
+</tr>
+<tr>
+	<td>비밀번호 : </td>
+	<td><input type="password" name="pwd" /></td>
+</tr>
+<tr>
+	<td>사진 선택 : </td>
+	<td><input type="file" name="sajin" /></td>
+</tr>
+<tr>
+	<td>하고 싶은 말 : </td>
+	<td><textarea name="cont" cols="50" rows="5"></textarea></td>
+</tr>
+<tr>
+	<td>성별 : </td>
+	<td>
+		<input type="radio" name="gender" value="남"
+			checked="true">남자&nbsp;&nbsp;
+		<input type="radio" name="gender" value="여">여자
+	</td>
+</tr>
+<tr>
+	<td>언어 선택: </td>
+	<td>
+		<input type="checkbox" name="lang" value="java">자바&nbsp;&nbsp;
+		<input type="checkbox" name="lang" value="c">C언어&nbsp;&nbsp;
+		<input type="checkbox" name="lang" value="python">python
+	</td>
+</tr>
+<tr>
+	<td>교통 수단: </td>
+	<td>
+		<select name="tra"> <!-- multiple="true" -->
+			<option value="b" selected="true">버스</option>
+			<option value="j">전철</option>
+			<option value="e">기타</option>
+		</select>
+	</td>
+</tr>
+<input type="hidden" name="other" value="korea"></input>
+
+<tr>
+	<td colspan="2" style="text-align: center;">
+		<input type="submit" value="서버로 전송" />
+		<input type="reset" value="초기화"></input>
+	</td>
+</tr>	
+</table>
+</form>
+</body>
+</html>

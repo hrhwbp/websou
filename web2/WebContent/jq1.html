@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>jQuery 연습</title>
+<!--
+방법 1. 직접 다운받아 경로를 지정
+<script type="text/javascript" src = "js/jquery-3.1.0.js"></script>
+방법 2. CDI경로를 사용하여 jquery 사용
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+방법 3. jQuery 서버에서 직접 jQuery를 사용
+<script type="text/javascript" src = "http://code.jquery.com/jquery-latest.js"></script>
+-->
+<script type="text/javascript" src = "http://code.jquery.com/jquery-latest.js"></script>
+<style type="text/css">
+.good{
+   font-size : 50px;
+}
+</style>
+<script type="text/javascript">
+
+/*
+window.onload = function(){		//모든 자료들 (멀티미디어 파일 포함)이후 실행
+	alert("aa");
+}
+*/
+//jQuery$(document).ready(); 	// window.onload()와 비슷한 기능을 한다. 하지만 속도는 더 빠름(ONLY 텍스트 로딩후 바로 실행됨)
+$(document).ready(function(){	//13번 라인과 똑같은 뜻이다!
+	//alert("bb");
+	$("*").css("border", "1px solid #f00");				//선택 : 문서전체 
+	$('span').css("border", "3px dotted blue");			//선택 : 요소(element)를 선택적으로 css를 줌
+	jQuery('#content').css("background-color", "cyan");	//선택 : id(attribute)
+	jQuery('.my').css("border", "5px solid yellow");	//선택 : class(attribute)
+	$("i > .my").css("color", "red");					//선택 : 요소(attribute) i 하위의 my에 대한 css
+}); 	
+$(function(){					//(document).ready*/생략하고 function()만 사용가능
+	//$(".kor").css("color", "blue");
+	//$(".kor").addClass("good");
+	$(".kor").css("color", "blue").addClass("good");	//method chain을 사용 - 각 대상에 대하여 연속적으로 추가가능
+}); 	
+</script>
+</head>
+<body>
+<h2 class = "good">jQuery 연습</h2>
+<p class = "my">매우 무더운 여름</p>
+<div>
+	<div id="content">가을이 오겠지</div>
+</div>
+<span>강남역</span>
+<i><span class = "my"> 12번 출구</span></i>
+<b class = "kor">대한민국</b>
+</body>
+</html>
