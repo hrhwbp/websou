@@ -2,10 +2,9 @@
 <%@ page language="java" contentType="text/plain; charset=UTF-8"
    pageEncoding="UTF-8"%>
 
-{"gogekinfo": [
+[
 <%
-   /* 이 안은 자바!  JSON을 DB에서 불러서 사용하는 방법 실습*/
-   String gogek_gen = request.getParameter("gogek_gen");
+   /* 이 안은 자바!  json을 DB에서 불러서 사용하는 방법 실습*/
    Connection conn = null;   
    PreparedStatement pstmt = null;
    ResultSet rs = null;	
@@ -20,15 +19,13 @@
    try {
 	  //System.out.println("@JSON gogek_gen: " + gogek_gen);
       conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:orcl", "scott", "tiger");
-      pstmt = conn.prepareStatement("select gogek_name, gogek_tel, sawon_name, buser_tel from gogek inner join sawon on sawon_no = gogek_damsano left outer join buser on buser_no = buser_num where gogek_jumin like ?");
-      pstmt.setString(1,"%-" + gogek_gen + "%");
+      pstmt = conn.prepareStatement("select sawon_no, sawon_name, buser_num from sawon order by sawon_no");      
       rs = pstmt.executeQuery();
       while (rs.next()) {
          result += "{";
-         result += "\"gogek_name\":" + "\"" + rs.getString("gogek_name") + "\",";
-         result += "\"gogek_tel\":" + "\"" + rs.getString("gogek_tel") + "\",";
+         result += "\"sawon_no\":" + "\"" + rs.getString("sawon_no") + "\",";
          result += "\"sawon_name\":" + "\"" + rs.getString("sawon_name") + "\",";
-         result += "\"buser_tel\":" + "\"" + rs.getString("buser_tel") + "\"";
+         result += "\"buser_num\":" + "\"" + rs.getString("buser_num") + "\"";         
          result += "},";
       }
       if(result.length() > 0){
@@ -46,4 +43,4 @@
    }
    
 %>
-]}
+]

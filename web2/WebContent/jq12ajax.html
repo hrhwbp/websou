@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style type="text/css">
+</style>
+<script type="text/javascript"
+	src="http://code.jquery.com/jquery-latest.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+	//txt문서
+	$("#test1").click(function(){
+		$("#disp").empty();
+		
+		$("#disp").load("jq12.txt");		//load()방식 <- Ajax 처리 메소드	
+		/*
+		$("#disp").hide().load("jq12.txt", function(){
+			$(this).fadeIn();
+		});
+		*/
+	});
+	//xml문서
+	$("#test2").click(function(){
+		$("#disp").empty();
+		
+		$.get("jq12.xml", function(data){	//get방식 <- Ajax 처리 메소드 (data로 받아옴)
+			//alert(data);
+			//alert($(data).find("aa").size());
+			$(data).find("aa").each(function(){
+				var fdata = $(this);
+				//console.log(fdata);
+				var str = "<div>";
+				str += fdata.attr("part") + " " + fdata.attr("term");			//속성값 가져오기
+				str += fdata.find("desc").text();								//요소값 가져오기
+				str += "</div>"
+				
+				$("#disp").append(str);
+			});
+		});
+		/*
+		$.post("jq12.xml", function(){		//post방식 <- Ajax 처리 메소드
+		
+		});
+		*/
+	});
+	//DB SAWOM 자료 읽기	
+	$("#test3").click(function(sData){
+		$("#disp2").empty();
+		
+		$.get("jq12_ex.jsp", function(sData){
+			var str = "<table border = '1'><tr><th>사번</th><th>이름</th><th>부서명</th></tr>";
+				
+			$(sData).find("sawon").each(function(){
+				var sfdata =$(this);
+				str += "<tr><td>";
+				str += sfdata.find("sawon_no").text();				
+				str += "</td><td>";
+				str += sfdata.find("sawon_name").text();
+				str += "</td><td>";
+				str += sfdata.find("buser_name").text();
+				str += "</td></tr>";
+				
+			});
+				str += "</table>";
+				$("#disp2").append(str);
+		});
+	});
+	
+	//JSON 자료 읽기
+	$("#test4").click(function(){
+		$("#disp").empty();
+		$.getJSON("jq12.json", null, function(data){
+			//alert(data);	
+			$.each(data, function(keyindex, value){
+				//alert(keyindex+ ": " + value);
+				var str = "<ol>";
+				str += "<li>" + value["title"] + "</li>";
+				str += "<li>" + value["desc"] + "</li>";
+				str += "<li>" + value["author"] + "</li>";
+				str += "</ol>"
+				$("#disp").append(str);
+			});
+		});
+	});
+	
+	$("#test5").click(function(){
+		$("#disp2").empty();
+		$.getJSON("jq12_exjson.jsp", null, function(data){			
+			alert(data);
+			$.each(data, function(keyindex, value){
+				alert(keyindex+ ": " + value);
+				var str = "<ul>";
+				str += "<li>" + value["sawon_no"] + "</li>";
+				str += "<li>" + value["sawon_name"] + "</li>";
+				str += "<li>" + value["buser_num"] + "</li>";
+				str += "</ul>"
+				$("#disp2").append(str);
+			});
+		});
+	});		
+	
+});
+</script>
+</head>
+<body>
+	<h2>**ajax로 자료 읽기 **</h2>
+	<div>
+		<ul>
+			<li id="test1">txt읽기</li>
+			<li id="test2">xml읽기</li>
+			<li id="test3">xml읽기(DB-Sawon자료)</li>
+			<li id="test4">json읽기</li>
+			<li id="test5">json읽기(DB-Sawon자료)</li>
+		</ul>
+	</div>
+	<hr>
+	결과 :
+	<div id="disp"></div>
+	<hr>
+	결과(db):
+	<div id="disp2"></div>
+</body>
+</html>
