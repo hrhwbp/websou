@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>상품자료</title>
+<script type="text/javascript">
+	var xhr;
+	var gen;
+	var radioValue = "";
+	window.onload = function() {
+		startXhr();
+		document.all.rbtn[0].onclick = function() {
+			//alert("전체 눌러짐");	
+			radioValue = "";
+			startXhr();
+		}
+		document.all.rbtn[1].onclick = function() {
+			//alert("남 눌러짐");
+			radioValue = document.all.rbtn[1].value;
+			startXhr();
+		}
+		document.all.rbtn[2].onclick = function() {
+			//alert("여 눌러짐");
+			radioValue = document.all.rbtn[2].value;
+			startXhr();
+		}		
+	}
+
+	function startXhr() {
+		xhr = new XMLHttpRequest();
+		xhr.open("get", "jspxml1_ex.jsp", true); //비동기 방식 true
+		xhr.onreadystatechange = function() {
+			if (xhr.readyState == 4) {
+				if (xhr.status == 200) {
+					process(radioValue);
+				} else {
+					alert("요청 실패:" + xhr.status);
+				}
+			}
+		}
+		xhr.send(null);
+	}
+
+	function process(gen) {
+		var data = xhr.responseXML;
+		//alert(data);
+		//alert(gen);
+		var sawonNode = data.getElementsByTagName("sawon");
+		var sawonNoNode = data.getElementsByTagName("sawon_no");
+		var sawonNameNode = data.getElementsByTagName("sawon_name");
+		var sawonJikNode = data.getElementsByTagName("sawon_jik");
+		var sawonIbsailNode = data.getElementsByTagName("sawon_ibsail");
+		var sawongenNode = data.getElementsByTagName("sawon_gen");
+
+		var str = "<table border = '1'>";
+		str += "<tr><th>사번</th><th>이름</th><th>직급</th><th>입사년</th></tr>";
+		var count = 0
+
+		for (var i = 0; i < sawonNode.length; i++) {
+			if (gen.trim() == "") {
+				str += "<tr>";
+				str += "<td>" + sawonNoNode[i].childNodes[0].nodeValue + "</td>";
+				str += "<td>" + sawonNameNode[i].firstChild.nodeValue + "</td>";
+				str += "<td>" + sawonJikNode[i].firstChild.nodeValue + "</td>";
+				str += "<td>" + sawonIbsailNode[i].firstChild.nodeValue + "</td>";
+				str += "</tr>";
+				count ++;
+			} else if (gen.trim() == sawongenNode[i].childNodes[0].nodeValue.trim()) {
+				str += "<tr>";
+				str += "<td>" + sawonNoNode[i].childNodes[0].nodeValue + "</td>";
+				str += "<td>" + sawonNameNode[i].firstChild.nodeValue + "</td>";
+				str += "<td>" + sawonJikNode[i].firstChild.nodeValue + "</td>";
+				str += "<td>" + sawonIbsailNode[i].firstChild.nodeValue + "</td>";
+				str += "</tr>";
+				count++;
+			}
+		}
+
+		str += "</table>";
+		str += "인원수 " + count + " 명"
+		document.getElementById("disp").innerHTML = str;
+	}
+</script>
+</head>
+<body>
+	<p>직원자료보기</p>
+	<form>
+		<input type="radio" id="rbtnAll" name="rbtn" value=""checked="checked"> 전체 
+		<input type="radio" id="rbtnMale"	name="rbtn" value="남"> 남 
+		<input type="radio" id="rbtnFemale" name="rbtn" value="여"> 여
+	</form>
+	<hr />
+	<div id="disp"></div>
+</body>
+</html>

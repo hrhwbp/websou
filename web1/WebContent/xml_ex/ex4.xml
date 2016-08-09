@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<p:jikwons xmlns:p="http://www.example.org/df" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.example.org/df df.xsd ">
+  <jikwon>
+    <irum>홍길동</irum>
+    <gender>남</gender>
+    <pay>5000</pay>
+  </jikwon>
+   <jikwon>
+    <irum>고길동</irum>
+    <gender>남</gender>
+    <pay>6000</pay>
+  </jikwon>
+   <jikwon>
+    <irum>길동</irum>
+    <gender>남</gender>
+    <pay>5000</pay>
+  </jikwon>
+</p:jikwons>

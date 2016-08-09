@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>상품자료</title>
+<script type="text/javascript">
+var xhr;
+var jik = "";
+var name = "";
+window.onload = function(){
+	startXhr();
+	document.getElementById("btnAll").onclick = function(){
+		process("");
+	}
+	document.getElementById("btnBu").onclick = function(){
+		process("부장");
+	}
+	document.getElementById("btnGua").onclick = function(){
+		process("과장");
+	}
+	document.getElementById("btnDae").onclick = function(){
+		process("대리");
+	}
+	document.getElementById("btnSa").onclick = function(){
+		process("사원");
+	}
+}
+
+function startXhr(){
+	xhr = new XMLHttpRequest();
+	xhr.open("get", "jspjson1_ex.jsp", true);
+	xhr.onreadystatechange = function(){
+		if(xhr.readyState == 4){
+			if(xhr.status == 200){
+				process();
+			}else{
+				alert("요청 실패:" + xhr.status);
+			}
+		}		
+	}
+	xhr.send(null);
+}
+
+function process(jik){
+	var data = xhr.responseText;
+	//alert(data);
+	//alert(jik)
+	var parseData = JSON.parse(data);
+	//alert(parseData);
+	
+	var str = "<table border = '1'><th>사번</th><th>이름</th><th>직급</th><th>성별</th>";	
+	for (var i = 0; i < parseData.sawon.length; i++) {
+		if(jik.trim() == "" || jik.trim() == parseData.sawon[i].sawon_jik)
+		str += "<tr><td>" + parseData.sawon[i].sawon_no + "</td>" +
+				"<td><a href = '#' onclick='buserDisp(\""+parseData.sawon[i].buser_name+"\")'>" + parseData.sawon[i].sawon_name + "</td>" +
+				"<td>" + parseData.sawon[i].sawon_jik + "</td>" +
+				"<td>" + parseData.sawon[i].sawon_gen + "</td></tr>";
+	}
+	str += "</table>";
+	document.getElementById("disp").innerHTML = str;
+}
+
+function buserDisp(name){
+	var count1 = 0;
+	var data = xhr.responseText;	
+	var parseData = JSON.parse(data);
+	var str1;	
+	for (var i = 0; i < parseData.sawon.length; i++) {
+		if(name.trim() == parseData.sawon[i].buser_name){
+		str1 = "<table border = '1'><th>부서명</th><th>부서전화</th>" + 
+				"<tr><td>" + parseData.sawon[i].buser_name + "</td>" +
+				"<td>" + parseData.sawon[i].buser_tel + "</td></tr>";
+		count1++;
+		}
+	}
+	str1 += "<tr><td colspan='2'>직원수: "+ count1 + "</td></tr>"
+	str1 += "</table>";
+	document.getElementById("disp2").innerHTML = str1;
+}
+</script>
+</head>
+<body>
+<p>직원자료 보기</p>
+<button id ="btnAll" value = "">전체</button>
+<button id ="btnBu" value = "부장">부장</button>
+<button id ="btnGua" value = "과장">과장</button>
+<button id ="btnDae" value = "대리">대리</button>
+<button id ="btnSa" value = "사원">사원</button>
+<hr/>
+<p></p>
+<div id = "disp"></div>
+<hr/>
+<div id = "disp2"></div>
+</body>
+</html>

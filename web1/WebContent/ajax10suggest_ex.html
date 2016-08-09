@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript" src = "js/ajax10suggest_ex.js"></script>
+</head>
+<body>
+<h2>HR 직원 관리 고객 목록 (suggest로 XML 읽기)</h2><br>
+<form name = "frm">
+입사년 : <input type="text" size = "5" name ="keyword" id ="keyword" onkeydown="sijak()">
+<div id ="suggest" style = "display:; position: absolute; left:72px; top: 110px;">
+	<div id="suggestlist"></div></div>
+직원명 : <select id = "dropMeun" name = "dropMeun" onChange="setValues();"><option>사원이름을 선택해 주세요</option></select>
+</form>
+<hr/>
+관리고객
+<div id = "tableDisp">dd</div>
+</body>
+</html>

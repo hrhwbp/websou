@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript">
+	var xhr;
+	window.onload = function() {
+		xhr = new XMLHttpRequest();
+		xhr.open("get","ajax9.txt",true); //도메인이 같아야 한다.(다른IP주소 안됨)
+		xhr.onreadystatechange = function() {
+			if (xhr.readyState == 4) { //통신상태 이상 없음
+				if (xhr.status == 200) {
+					process();
+				} else {
+					alert("요청 실패 : " + xhr.status);
+				}
+			}
+		}
+		xhr.send(null);
+	}
+
+	function process() {
+		var datas = xhr.responseText;		
+		alert(datas);
+		var rowData = datas.split(String.fromCharCode(13)); //Carriage Return으로 구문
+		alert(rowData.length);
+		var str ="";
+		for (var i = 0; i < rowData.length; i++) {
+			var colData = rowData[i].split(",");	//,로 구분
+			for (var j = 0; j < colData.length; j++) {
+				str += colData[j] + " ";
+			}
+			str += "<br>";
+		}
+		document.getElementById("disp").innerHTML = str;
+	}
+</script>
+</head>
+<body>
+	상품자료 읽기(CSV)
+	<p />
+	<div id="disp"></div>
+</body>
+</html>

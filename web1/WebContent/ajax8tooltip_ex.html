@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript" src="js/ajax8_ex.js"></script>
+</head>
+<body>
+<table border="0">
+   <tr><td style="text-align: center;" colspan="5"><h2>부서별 직원 목록</h2></td>
+   <tr>
+      <td id="" onmouseover="goFunc(this)" onmouseout="clsFunc()"><img alt = "모든 고객" src = "http://sensatejournal.com//wp-content/themes/sensate/images/icon_all.png" style = "height:50px; width:50px"></td>
+      <td id="1" onmouseover="goFunc(this)" onmouseout="clsFunc()"><img alt = "남자" src = "https://3.bp.blogspot.com/-_NWHDCksPhE/Vuvf7NT9hcI/AAAAAAAAABM/frbpDSHxcIE_PheiZwIEAEjB2JPfYIKxg/s1600/17797.png" style = "height:50px; width:50px"></td>
+      <td id="2" onmouseover="goFunc(this)" onmouseout="clsFunc()"><img alt = "여자" src = "https://4.bp.blogspot.com/-97Qgi334GoQ/VuvgYDA-AXI/AAAAAAAAAH0/A_25Ynk0ObUTUC6YUhdRyASeKiFjtdNHg/s1600/femaleicon.png" style = "height:50px; width:50px"></td>  
+      <td><input type="radio" name = "rbtn" value = "XML" id = "r1" checked = "checked" onchange = "checkIt(this)">XML</td>
+      <td><input type="radio" name = "rbtn" value = "JSON" id = "r2 "onchange = "checkIt(this)">JSON</td>
+   </tr>
+</table>
+<hr>
+<table>
+	<tr><th width = "400">XML Display</th><th width = "400">JSON Display</th></tr>
+	<tr><td id ="XMLdisp"></td><td id ="JSONdisp"></td></tr>
+</table>
+</body>
+</html>

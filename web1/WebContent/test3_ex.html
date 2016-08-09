@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<script type="text/javascript">
+
+window.onload = function(){	//callback function (시스템에 의해서 호출되는 기능)
+	//alert("문서 로딩이 완료되면 자동 수행");
+	
+	document.getElementById("btn1").addEventListener("click", func1, false)
+	document.getElementById("btn2").addEventListener("click", func2, false);	
+	
+}
+function func1(){
+	
+	num_check=/^[0-9]*$/;
+	a = document.getElementById("txt1").value;
+	b = document.getElementById("txt2").value;
+	
+	
+	if (a.match(num_check) && b.match(num_check)){
+		c = parseInt(a) + parseInt(b);
+		document.getElementById("show1").innerHTML = "결과 (inner HTML): " + c;
+		var result = document.getElementById("show2");
+		var ele = document.createElement("a");
+		var str = document.createTextNode(c);
+		result.appendChild(ele);
+		ele.appendChild(str);
+	}else{
+		document.getElementById("show1").innerHTML = "결과 (inner HTML): " + a+b;
+		var result = document.getElementById("show2");
+		var ele = document.createElement("a");
+		var str = document.createTextNode("결과 (DOM 사용): " + a+b);
+		result.appendChild(ele);
+		ele.appendChild(str);
+	}
+	if(result.hasChildNodes()){
+		result.removeChild(result.childNodes[0]);
+	}
+}
+function func2(){
+	//document.getElementById("txt1").value = null;
+	//document.getElementById("txt2").value = null;
+	document.getElementById("show1").innerHTML = "결과 (inner HTML): ";
+	remove = document.getElementById("show2");
+	while(remove.hasChildNodes()){         
+        remove.removeChild(remove.childNodes[1]);
+    }
+
+}
+</script>
+<body>
+<form>
+<input type = "text" id ="txt1"><br>
+<input type = "text" id ="txt2"><br>
+<input type = "button" value = "확인" id ="btn1">
+<input type = "reset" value = "초기화" id ="btn2"><br>
+<hr>
+<div id="show1">결과 (inner HTML): </div>
+<div id="show2">결과 (DOM 사용): </div>
+</form>
+</body>
+</html>

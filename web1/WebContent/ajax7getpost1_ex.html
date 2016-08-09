@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript">
+window.onload = function(){
+	document.getElementById("btnPost").onclick = checkFunc;
+}
+
+var xhr;
+var sawon_no;
+var sawon_name;
+function checkFunc(){	
+	sawon_no = frm.sawon_no.value;
+	sawon_name = frm.sawon_name.value;	
+	if(sawon_no == "" || sawon_name == ""){
+		document.getElementById("show").innerText = "사원정보를 확인하십시오";
+	}else{
+		postFunc();
+	}		
+}
+
+function postFunc(){
+	
+	xhr = new XMLHttpRequest();
+	xhr.open("post", "ajax7_ex.jsp", true);
+	xhr.onreadystatechange = function(){
+		if(xhr.readyState == 4){
+			if(xhr.status == 200){
+				process()
+			}else{
+				alert("post 요청 실패:" + xhr.status);
+			}
+		}
+	}
+	xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded")
+	xhr.send("sawon_no=" + sawon_no + "&sawon_name=" + sawon_name);
+}
+
+
+function process(){
+	alert("dd");
+	var data = xhr.responseXML;	
+		var gogekNode = data.getElementsByTagName("gogek");
+		var gogek_name = data.getElementsByTagName("gogek_name");
+		var gogek_tel = data.getElementsByTagName("gogek_tel");
+		var gogek_gen = data.getElementsByTagName("gogek_gen");
+
+		var str = "<table border = '1'>";
+		str += "<tr><th>고객성함</th><th>고객전화번호</th><th>성별</th></tr>";
+		var count = 0;
+		
+		for (var i = 0; i < gogekNode.length; i++) {
+			if (gogek_gen[i].firstChild.nodeValue == "남") {
+				str += "<tr>";
+				str += "<td><span style='color:#0000ff'>" + gogek_name[i].childNodes[0].nodeValue + "</span></td>";
+				str += "<td><span style='color:#0000ff'>" + gogek_tel[i].firstChild.nodeValue + "</span></td>";
+				str += "<td><span style='color:#0000ff'>" + gogek_gen[i].firstChild.nodeValue + "</span></td>";				
+				str += "</tr>";
+				count ++;
+			}else{
+				str += "<tr>";
+				str += "<td><span style=\"color:#dda0dd\">" + gogek_name[i].childNodes[0].nodeValue + "</span></td>";
+				str += "<td><span style=\"color:#dda0dd\">" + gogek_tel[i].firstChild.nodeValue + "</span></td>";
+				str += "<td><span style=\"color:#dda0dd\">" + gogek_gen[i].firstChild.nodeValue + "</span></td>";				
+				str += "</tr>";
+				count ++;
+			}
+		}
+		str += "</table>";
+		str += "고객수 " + count + "명";
+		alert(str);
+		document.getElementById("show").innerHTML = str;
+}
+</script>
+</head>
+<body>
+	get, post test
+	<p />
+	<form name='frm'>
+		사번 : <input type="text" name="sawon_no"><br> 이름 : <input
+			type="text" name="sawon_name"><input type="button"
+			value="관리고객 출력" id="btnPost">
+
+	</form>
+	<hr />
+	<div id="show"></div>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+

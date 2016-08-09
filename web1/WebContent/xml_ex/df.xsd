@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.example.org/df">
+	<element name = "jikwons">
+		<complexType>
+			<sequence>
+				<element name="jikwon" minOccurs="1" maxOccurs="unbounded">
+					<complexType>
+						<sequence>
+							<element name="irum" type="string"/> <!-- string, boolean, decimal(int, integer, byte, short, long), float, double, data, time -->
+							<element name="gender" type="string"/>
+							<element name="pay" type="int"/>
+						</sequence>
+					</complexType>
+				</element>
+			</sequence>
+		</complexType>
+	</element>
+</schema>
